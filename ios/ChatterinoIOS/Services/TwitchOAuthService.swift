@@ -8,14 +8,16 @@ final class TwitchOAuthService: NSObject, AuthService, ASWebAuthenticationPresen
     private let refreshTokenKey = "twitch_refresh_token"
 
     private let clientId: String
+    private let clientSecret: String
     private let redirectURI: String
     private let callbackScheme: String
 
     private var authSession: ASWebAuthenticationSession?
     private weak var authAnchor: ASPresentationAnchor?
 
-    init(clientId: String, redirectURI: String, callbackScheme: String) {
+    init(clientId: String, clientSecret: String, redirectURI: String, callbackScheme: String) {
         self.clientId = clientId
+        self.clientSecret = clientSecret
         self.redirectURI = redirectURI
         self.callbackScheme = callbackScheme
     }
@@ -96,15 +98,21 @@ final class TwitchOAuthService: NSObject, AuthService, ASWebAuthenticationPresen
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
-        let bodyPairs: [String: String] = [
+        var bodyPairs: [String: String] = [
             "client_id": clientId,
             "grant_type": "authorization_code",
             "code": code,
             "redirect_uri": redirectURI,
             "code_verifier": codeVerifier,
         ]
+        if !clientSecret.isEmpty {
+            bodyPairs["client_secret"] = clientSecret
+        }
         request.httpBody = bodyPairs
-            .map { "\($0.key)=\($0.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")" }
+            .map { key, value in
+                let encoded = value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                return "\(key)=\(encoded)"
+            }
             .joined(separator: "&")
             .data(using: .utf8)
 
