@@ -9,6 +9,9 @@ if ! command -v xcodegen >/dev/null 2>&1; then
   exit 1
 fi
 
-xcodegen generate --spec project.yml --project ChatterinoIOS.xcodeproj
+# Limpieza de rutas antiguas erróneas
+rm -rf ChatterinoIOS/ChatterinoIOS.xcodeproj
+
+xcodegen generate --spec project.yml --project ChatterinoIOS
 
 echo "✅ Proyecto generado: $ROOT_DIR/ChatterinoIOS.xcodeproj"
