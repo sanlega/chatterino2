@@ -17,6 +17,7 @@ Estado: **MVP en marcha**.
 ## Arranque rápido
 
 Guía completa de setup: `Docs/XCODE_SETUP.md`
+Instalación en iPhone: `Docs/INSTALL_ON_IPHONE.md`
 
 1. Instalar XcodeGen (si no lo tienes):
    - `brew install xcodegen`
