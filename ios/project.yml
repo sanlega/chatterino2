@@ -17,6 +17,9 @@ targets:
       base:
         INFOPLIST_FILE: ChatterinoIOS/Info.plist
         GENERATE_INFOPLIST_FILE: NO
+      configFiles:
+        Debug: ChatterinoIOS/Config.xcconfig
+        Release: ChatterinoIOS/Config.xcconfig
       configs:
         Debug:
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) DEBUG USE_REAL_SERVICES

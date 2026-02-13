@@ -2,6 +2,8 @@
 // Twitch ahora exige HTTPS en redirect URI.
 // Usa exactamente el mismo valor en Twitch Console y aquí:
 TWITCH_CLIENT_ID = ly5unwrgvyb238l3ia9ndgmtmcoq3g
+// Si tu app en Twitch es Confidential, rellena este valor.
+// Si es Public, déjalo vacío.
 TWITCH_CLIENT_SECRET =
 TWITCH_REDIRECT_URI = https://sanlega.github.io/chatterinoios-oauth-relay/
 TWITCH_CALLBACK_SCHEME = chatterinoios
