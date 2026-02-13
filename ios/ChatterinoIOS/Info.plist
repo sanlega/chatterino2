@@ -34,5 +34,18 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>twitch-auth</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>chatterinoios</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

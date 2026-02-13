@@ -3,7 +3,9 @@ import Foundation
 protocol ChatService {
     func fetchChannels() async throws -> [Channel]
     func fetchMessages(channelId: String) async throws -> [ChatMessage]
+    func startRealtime(channelId: String, onMessage: @escaping (ChatMessage) -> Void) async throws
     func sendMessage(channelId: String, text: String) async throws
+    func stopRealtime()
 }
 
 final class MockChatService: ChatService {
@@ -24,8 +26,17 @@ final class MockChatService: ChatService {
         ]
     }
 
+    func startRealtime(channelId: String, onMessage: @escaping (ChatMessage) -> Void) async throws {
+        _ = channelId
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            onMessage(.init(author: "viewer42", text: "Mensaje de prueba en tiempo real"))
+        }
+    }
+
     func sendMessage(channelId: String, text: String) async throws {
         guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         _ = channelId
     }
+
+    func stopRealtime() {}
 }

@@ -14,7 +14,7 @@ enum ServiceFactory {
 
     static func makeChatService() -> ChatService {
 #if USE_REAL_SERVICES
-        return TwitchHelixChatService(accessTokenProvider: {
+        return TwitchHelixChatService(clientId: AppConfig.twitchClientID, accessTokenProvider: {
             KeychainStore.load(key: "twitch_access_token")
         })
 #else

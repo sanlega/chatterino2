@@ -49,8 +49,13 @@ final class AppViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         do {
+            chat.stopRealtime()
             messages = try await chat.fetchMessages(channelId: channel.id)
             route = .chat(channel)
+
+            try await chat.startRealtime(channelId: channel.id) { [weak self] msg in
+                self?.messages.append(msg)
+            }
         } catch {
             errorText = "No se pudo abrir el canal"
         }
@@ -67,6 +72,7 @@ final class AppViewModel: ObservableObject {
     }
 
     func logout() {
+        chat.stopRealtime()
         auth.signOut()
         channels = []
         messages = []
