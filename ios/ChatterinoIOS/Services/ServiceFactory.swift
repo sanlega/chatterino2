@@ -25,10 +25,14 @@ enum ServiceFactory {
 
 enum AppConfig {
     static var twitchClientID: String {
-        (Bundle.main.object(forInfoDictionaryKey: "TWITCH_CLIENT_ID") as? String) ?? ""
+        let fromInfo = (Bundle.main.object(forInfoDictionaryKey: "TWITCH_CLIENT_ID") as? String) ?? ""
+        if !fromInfo.isEmpty, fromInfo != "$(TWITCH_CLIENT_ID)" { return fromInfo }
+        return "ihae39qdr5zg5sf5sz28ak58cjcl8u"
     }
 
     static var twitchRedirectURI: String {
-        (Bundle.main.object(forInfoDictionaryKey: "TWITCH_REDIRECT_URI") as? String) ?? ""
+        let fromInfo = (Bundle.main.object(forInfoDictionaryKey: "TWITCH_REDIRECT_URI") as? String) ?? ""
+        if !fromInfo.isEmpty, fromInfo != "$(TWITCH_REDIRECT_URI)" { return fromInfo }
+        return "chatterinoios://auth"
     }
 }
