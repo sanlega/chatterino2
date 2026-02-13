@@ -18,6 +18,7 @@ Estado: **MVP en marcha**.
 
 Guía completa de setup: `Docs/XCODE_SETUP.md`
 Instalación en iPhone: `Docs/INSTALL_ON_IPHONE.md`
+Script un-comando: `scripts/one_command_iphone.sh`
 
 1. Instalar XcodeGen (si no lo tienes):
    - `brew install xcodegen`
