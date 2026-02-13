@@ -14,6 +14,9 @@ Estado: **MVP en marcha**.
 
 ## Arranque rápido
 
+Guía completa de setup: `Docs/XCODE_SETUP.md`
+
+
 1. Instalar XcodeGen (si no lo tienes):
    - `brew install xcodegen`
 2. Generar proyecto:
