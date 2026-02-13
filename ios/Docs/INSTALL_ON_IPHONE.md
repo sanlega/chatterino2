@@ -42,3 +42,10 @@ Pasos:
 - Release usa real (`USE_REAL_SERVICES`)
 
 Para pruebas funcionales reales debes completar OAuth y chat real.
+
+## OAuth redirect (Twitch)
+
+Twitch exige redirect URI con `https://`.
+Usa este valor en Twitch Console y en `Config.xcconfig`:
+
+`https://localhost/chatterinoios/auth`

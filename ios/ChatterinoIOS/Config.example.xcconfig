@@ -1,4 +1,5 @@
 // Copia este archivo a Config.xcconfig y añade valores reales
-// En Twitch Console añade redirect exacto: chatterinoios://auth
+// Twitch ahora exige HTTPS en redirect URI.
+// Usa exactamente el mismo valor en Twitch Console y aquí:
 TWITCH_CLIENT_ID = ihae39qdr5zg5sf5sz28ak58cjcl8u
-TWITCH_REDIRECT_URI = chatterinoios://auth
+TWITCH_REDIRECT_URI = https://localhost/chatterinoios/auth

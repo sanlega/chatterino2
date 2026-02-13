@@ -33,6 +33,6 @@ enum AppConfig {
     static var twitchRedirectURI: String {
         let fromInfo = (Bundle.main.object(forInfoDictionaryKey: "TWITCH_REDIRECT_URI") as? String) ?? ""
         if !fromInfo.isEmpty, fromInfo != "$(TWITCH_REDIRECT_URI)" { return fromInfo }
-        return "chatterinoios://auth"
+        return "https://localhost/chatterinoios/auth"
     }
 }
