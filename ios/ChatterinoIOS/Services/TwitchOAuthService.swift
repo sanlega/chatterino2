@@ -9,12 +9,14 @@ final class TwitchOAuthService: NSObject, AuthService, ASWebAuthenticationPresen
 
     private let clientId: String
     private let redirectURI: String
+    private let callbackScheme: String
 
     private var authSession: ASWebAuthenticationSession?
 
-    init(clientId: String, redirectURI: String) {
+    init(clientId: String, redirectURI: String, callbackScheme: String) {
         self.clientId = clientId
         self.redirectURI = redirectURI
+        self.callbackScheme = callbackScheme
     }
 
     var isAuthenticated: Bool {
@@ -51,7 +53,7 @@ final class TwitchOAuthService: NSObject, AuthService, ASWebAuthenticationPresen
                           userInfo: [NSLocalizedDescriptionKey: "No se pudo construir URL OAuth"])
         }
 
-        let callbackScheme = URL(string: redirectURI)?.scheme
+        let callbackScheme = self.callbackScheme
 
         let callbackURL: URL = try await withCheckedThrowingContinuation { cont in
             let session = ASWebAuthenticationSession(url: authURL,

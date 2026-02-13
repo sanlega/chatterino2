@@ -5,7 +5,8 @@ enum ServiceFactory {
 #if USE_REAL_SERVICES
         return TwitchOAuthService(
             clientId: AppConfig.twitchClientID,
-            redirectURI: AppConfig.twitchRedirectURI
+            redirectURI: AppConfig.twitchRedirectURI,
+            callbackScheme: AppConfig.twitchCallbackScheme
         )
 #else
         return MockAuthService()
@@ -33,6 +34,12 @@ enum AppConfig {
     static var twitchRedirectURI: String {
         let fromInfo = (Bundle.main.object(forInfoDictionaryKey: "TWITCH_REDIRECT_URI") as? String) ?? ""
         if !fromInfo.isEmpty, fromInfo != "$(TWITCH_REDIRECT_URI)" { return fromInfo }
-        return "https://localhost/chatterinoios/auth"
+        return "https://sanlega.github.io/chatterinoios-oauth-relay/"
+    }
+
+    static var twitchCallbackScheme: String {
+        let fromInfo = (Bundle.main.object(forInfoDictionaryKey: "TWITCH_CALLBACK_SCHEME") as? String) ?? ""
+        if !fromInfo.isEmpty, fromInfo != "$(TWITCH_CALLBACK_SCHEME)" { return fromInfo }
+        return "chatterinoios"
     }
 }

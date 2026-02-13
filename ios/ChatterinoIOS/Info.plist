@@ -30,6 +30,8 @@
 	<string>$(TWITCH_CLIENT_ID)</string>
 	<key>TWITCH_REDIRECT_URI</key>
 	<string>$(TWITCH_REDIRECT_URI)</string>
+	<key>TWITCH_CALLBACK_SCHEME</key>
+	<string>$(TWITCH_CALLBACK_SCHEME)</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

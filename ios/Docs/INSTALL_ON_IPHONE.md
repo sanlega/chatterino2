@@ -48,4 +48,7 @@ Para pruebas funcionales reales debes completar OAuth y chat real.
 Twitch exige redirect URI con `https://`.
 Usa este valor en Twitch Console y en `Config.xcconfig`:
 
-`https://localhost/chatterinoios/auth`
+`https://sanlega.github.io/chatterinoios-oauth-relay/`
+
+Ese relay reenvía automáticamente a la app usando el esquema:
+`chatterinoios://auth`
