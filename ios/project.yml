@@ -19,7 +19,7 @@ targets:
         GENERATE_INFOPLIST_FILE: NO
       configs:
         Debug:
-          SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) DEBUG USE_MOCK_SERVICES
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) DEBUG USE_REAL_SERVICES
         Release:
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) USE_REAL_SERVICES
     scheme:

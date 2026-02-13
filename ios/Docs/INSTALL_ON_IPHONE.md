@@ -38,7 +38,7 @@ Pasos:
 
 ## Config de servicios
 
-- Debug usa mock (`USE_MOCK_SERVICES`)
+- Debug usa real (`USE_REAL_SERVICES`)
 - Release usa real (`USE_REAL_SERVICES`)
 
 Para pruebas funcionales reales debes completar OAuth y chat real.
