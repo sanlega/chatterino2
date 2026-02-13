@@ -12,6 +12,7 @@ final class TwitchOAuthService: NSObject, AuthService, ASWebAuthenticationPresen
     private let callbackScheme: String
 
     private var authSession: ASWebAuthenticationSession?
+    private weak var authAnchor: ASPresentationAnchor?
 
     init(clientId: String, redirectURI: String, callbackScheme: String) {
         self.clientId = clientId
@@ -54,6 +55,12 @@ final class TwitchOAuthService: NSObject, AuthService, ASWebAuthenticationPresen
         }
 
         let callbackScheme = self.callbackScheme
+
+        guard let anchor = Self.resolvePresentationAnchor() else {
+            throw NSError(domain: "TwitchOAuthService", code: 98,
+                          userInfo: [NSLocalizedDescriptionKey: "No se encontró ventana activa para OAuth"])
+        }
+        self.authAnchor = anchor
 
         let callbackURL: URL = try await withCheckedThrowingContinuation { cont in
             let session = ASWebAuthenticationSession(url: authURL,
@@ -128,13 +135,28 @@ final class TwitchOAuthService: NSObject, AuthService, ASWebAuthenticationPresen
     }
 
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        for scene in UIApplication.shared.connectedScenes {
-            if let winScene = scene as? UIWindowScene,
-               let win = winScene.windows.first(where: { $0.isKeyWindow }) {
-                return win
+        if let win = authAnchor {
+            return win
+        }
+        return Self.resolvePresentationAnchor() ?? ASPresentationAnchor()
+    }
+
+    private static func resolvePresentationAnchor() -> ASPresentationAnchor? {
+        let scenes = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .sorted { lhs, rhs in
+                lhs.activationState == .foregroundActive && rhs.activationState != .foregroundActive
+            }
+
+        for scene in scenes {
+            if let key = scene.windows.first(where: { $0.isKeyWindow }) {
+                return key
+            }
+            if let first = scene.windows.first {
+                return first
             }
         }
-        return ASPresentationAnchor()
+        return nil
     }
 
     private static func randomURLSafeString(length: Int) -> String {
