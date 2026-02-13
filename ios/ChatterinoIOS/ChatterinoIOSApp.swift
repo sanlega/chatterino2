@@ -8,6 +8,9 @@ struct ChatterinoIOSApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(vm)
+                .task {
+                    await vm.bootstrap()
+                }
         }
     }
 }

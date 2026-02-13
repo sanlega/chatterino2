@@ -1,53 +1,75 @@
 import Foundation
 
+@MainActor
 final class AppViewModel: ObservableObject {
-    enum Route {
-        case login
-        case channels
-        case chat(Channel)
+    @Published var route: AppRoute = .login
+    @Published var channels: [Channel] = []
+    @Published var messages: [ChatMessage] = []
+    @Published var isLoading = false
+    @Published var errorText: String?
+
+    private let auth: AuthService
+    private let chat: ChatService
+
+    init(auth: AuthService = MockAuthService(),
+         chat: ChatService = MockChatService()) {
+        self.auth = auth
+        self.chat = chat
+        self.route = auth.isAuthenticated ? .channels : .login
     }
 
-    struct Channel: Identifiable, Hashable {
-        let id: String
-        let name: String
-        let viewers: Int
+    func bootstrap() async {
+        if auth.isAuthenticated {
+            await loadChannels()
+            route = .channels
+        }
     }
 
-    struct ChatMessage: Identifiable, Hashable {
-        let id = UUID()
-        let author: String
-        let text: String
+    func login() async {
+        isLoading = true
+        defer { isLoading = false }
+        do {
+            try await auth.signIn()
+            await loadChannels()
+            route = .channels
+        } catch {
+            errorText = "No se pudo iniciar sesión"
+        }
     }
 
-    @Published var route: Route = .login
-    @Published var channels: [Channel] = [
-        .init(id: "shroud", name: "shroud", viewers: 54231),
-        .init(id: "ibai", name: "ibai", viewers: 81234),
-        .init(id: "auronplay", name: "auronplay", viewers: 102230)
-    ]
-    @Published var messages: [ChatMessage] = [
-        .init(author: "system", text: "MVP bootstrap: chat mock activo")
-    ]
-
-    func login() {
-        // TODO: reemplazar por OAuth Twitch real (bridge)
-        route = .channels
+    func loadChannels() async {
+        do {
+            channels = try await chat.fetchChannels()
+        } catch {
+            errorText = "No se pudieron cargar canales"
+        }
     }
 
-    func open(channel: Channel) {
-        messages = [
-            .init(author: "system", text: "Entraste en #\(channel.name)"),
-            .init(author: "mod", text: "Bienvenido al chat")
-        ]
-        route = .chat(channel)
+    func open(channel: Channel) async {
+        isLoading = true
+        defer { isLoading = false }
+        do {
+            messages = try await chat.fetchMessages(channelId: channel.id)
+            route = .chat(channel)
+        } catch {
+            errorText = "No se pudo abrir el canal"
+        }
     }
 
-    func send(text: String) {
+    func send(text: String, in channel: Channel) async {
         guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
-        messages.append(.init(author: "you", text: text))
+        do {
+            try await chat.sendMessage(channelId: channel.id, text: text)
+            messages.append(.init(author: "you", text: text))
+        } catch {
+            errorText = "No se pudo enviar el mensaje"
+        }
     }
 
     func logout() {
+        auth.signOut()
+        channels = []
+        messages = []
         route = .login
     }
 }

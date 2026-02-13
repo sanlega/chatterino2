@@ -1,0 +1,20 @@
+name: ChatterinoIOS
+options:
+  minimumXcodeGenVersion: 2.38.0
+  deploymentTarget:
+    iOS: "17.0"
+settings:
+  base:
+    PRODUCT_BUNDLE_IDENTIFIER: com.sanlega.chatterinoios
+    SWIFT_VERSION: 5.10
+targets:
+  ChatterinoIOS:
+    type: application
+    platform: iOS
+    sources:
+      - ChatterinoIOS
+    settings:
+      base:
+        INFOPLIST_FILE: ChatterinoIOS/Info.plist
+    scheme:
+      testTargets: []

@@ -7,7 +7,7 @@ struct ChannelsView: View {
         NavigationStack {
             List(vm.channels) { channel in
                 Button {
-                    vm.open(channel: channel)
+                    Task { await vm.open(channel: channel) }
                 } label: {
                     HStack {
                         Text("#\(channel.name)")
@@ -17,11 +17,24 @@ struct ChannelsView: View {
                     }
                 }
             }
+            .overlay {
+                if vm.channels.isEmpty {
+                    ProgressView("Cargando canales...")
+                }
+            }
             .navigationTitle("Canales")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Recargar") { Task { await vm.loadChannels() } }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Salir") { vm.logout() }
                 }
+            }
+        }
+        .task {
+            if vm.channels.isEmpty {
+                await vm.loadChannels()
             }
         }
     }

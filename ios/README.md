@@ -1,21 +1,29 @@
 # Chatterino iOS (MVP bootstrap)
 
-Estado: **bootstrap inicial**.
+Estado: **MVP en marcha**.
 
-## Objetivo de este bloque
+## Qué está implementado ya
 
-- Crear shell iOS con SwiftUI
-- Definir flujo base: Login -> Canales -> Chat
-- Preparar puente C++/ObjC++ para conectar core en siguientes iteraciones
+- Shell iOS SwiftUI funcional
+- Flujo: `Login -> Canales -> Chat`
+- Envío de mensajes (mock)
+- Persistencia de sesión mock en Keychain
+- Capa de servicios separada (`AuthService`, `ChatService`)
+- Puente C++/ObjC++ preparado (`Bridge/ChatCoreBridge.*`)
+- Backlog de MVP en `Docs/MVP_BACKLOG.md`
 
-## Estructura
+## Arranque rápido
 
-- `ChatterinoIOS/` app SwiftUI (pantallas + view model mock)
-- `Bridge/` puente nativo (`ChatCoreBridge`) para conectar core C++
-- `Docs/` tareas del MVP
+1. Instalar XcodeGen (si no lo tienes):
+   - `brew install xcodegen`
+2. Generar proyecto:
+   - `cd ios && xcodegen generate`
+3. Abrir:
+   - `open ChatterinoIOS.xcodeproj`
+4. Ejecutar en simulador iPhone.
 
-## Siguiente paso inmediato
+## Próximo bloque técnico
 
-1. Crear proyecto Xcode y añadir estos archivos.
-2. Conectar `ChatCoreBridge` a un primer caso real (estado de sesión).
-3. Sustituir datos mock por servicio real de canales/chat.
+1. Sustituir `MockAuthService` por OAuth Twitch real
+2. Sustituir `MockChatService` por cliente real sobre core C++
+3. Conectar `ChatCoreBridge` con sesiones/canales reales del core

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ChatView: View {
     @EnvironmentObject var vm: AppViewModel
-    let channel: AppViewModel.Channel
+    let channel: Channel
     @State private var input = ""
 
     var body: some View {
@@ -19,8 +19,9 @@ struct ChatView: View {
                 TextField("Escribe un mensaje", text: $input)
                     .textFieldStyle(.roundedBorder)
                 Button("Enviar") {
-                    vm.send(text: input)
+                    let text = input
                     input = ""
+                    Task { await vm.send(text: text, in: channel) }
                 }
                 .buttonStyle(.borderedProminent)
             }

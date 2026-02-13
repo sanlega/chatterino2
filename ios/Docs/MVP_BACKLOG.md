@@ -1,14 +1,16 @@
 # iOS MVP Backlog
 
-## Sprint 0 (actual)
+## Sprint 0 (hecho)
 - [x] Shell SwiftUI
 - [x] Navegación Login -> Channels -> Chat
+- [x] Capa de servicios (auth/chat) desacoplada
+- [x] Persistencia de sesión mock en Keychain
 - [x] Bridge C++/ObjC++ placeholder
-- [ ] Proyecto Xcode versionado
+- [x] Configuración XcodeGen (`project.yml`)
 
-## Sprint 1
+## Sprint 1 (en curso)
 - [ ] OAuth Twitch login real
-- [ ] Persistencia segura token (Keychain)
+- [ ] Persistencia segura token real (refresh)
 - [ ] Estado de sesión en bridge
 
 ## Sprint 2
@@ -17,7 +19,7 @@
 - [ ] Mensajes en tiempo real (lectura)
 
 ## Sprint 3
-- [ ] Envío de mensaje
+- [ ] Envío de mensaje real
 - [ ] Emotes básicos
 - [ ] Errores/red/reconexión mínima
 

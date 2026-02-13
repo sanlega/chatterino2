@@ -11,9 +11,10 @@ struct LoginView: View {
             Text("MVP · Login Twitch")
                 .foregroundStyle(.secondary)
 
-            Button("Continuar") {
-                vm.login()
+            Button(vm.isLoading ? "Conectando..." : "Continuar") {
+                Task { await vm.login() }
             }
+            .disabled(vm.isLoading)
             .buttonStyle(.borderedProminent)
         }
         .padding()
