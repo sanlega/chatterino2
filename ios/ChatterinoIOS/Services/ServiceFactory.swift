@@ -27,7 +27,7 @@ enum AppConfig {
     static var twitchClientID: String {
         let fromInfo = (Bundle.main.object(forInfoDictionaryKey: "TWITCH_CLIENT_ID") as? String) ?? ""
         if !fromInfo.isEmpty, fromInfo != "$(TWITCH_CLIENT_ID)" { return fromInfo }
-        return "ihae39qdr5zg5sf5sz28ak58cjcl8u"
+        return "ly5unwrgvyb238l3ia9ndgmtmcoq3g"
     }
 
     static var twitchRedirectURI: String {
