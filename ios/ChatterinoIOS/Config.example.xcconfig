@@ -1,0 +1,3 @@
+// Copia este archivo a Config.xcconfig y añade valores reales
+TWITCH_CLIENT_ID = your_twitch_client_id
+TWITCH_REDIRECT_URI = chatterinoios://auth
