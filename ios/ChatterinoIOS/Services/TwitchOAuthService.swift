@@ -2,7 +2,6 @@ import Foundation
 import AuthenticationServices
 import CryptoKit
 
-@MainActor
 final class TwitchOAuthService: NSObject, AuthService {
     private let tokenKey = "twitch_access_token"
     private let refreshTokenKey = "twitch_refresh_token"
