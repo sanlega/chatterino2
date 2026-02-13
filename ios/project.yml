@@ -16,5 +16,10 @@ targets:
     settings:
       base:
         INFOPLIST_FILE: ChatterinoIOS/Info.plist
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) DEBUG USE_MOCK_SERVICES
+        Release:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) USE_REAL_SERVICES
     scheme:
       testTargets: []

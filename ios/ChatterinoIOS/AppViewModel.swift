@@ -11,8 +11,8 @@ final class AppViewModel: ObservableObject {
     private let auth: AuthService
     private let chat: ChatService
 
-    init(auth: AuthService = MockAuthService(),
-         chat: ChatService = MockChatService()) {
+    init(auth: AuthService,
+         chat: ChatService) {
         self.auth = auth
         self.chat = chat
         self.route = auth.isAuthenticated ? .channels : .login

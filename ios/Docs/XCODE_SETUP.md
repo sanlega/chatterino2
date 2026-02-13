@@ -4,7 +4,8 @@
 
 ```bash
 cd ios
-xcodegen generate
+./scripts/generate_project.sh
+./scripts/verify_structure.sh
 open ChatterinoIOS.xcodeproj
 ```
 
@@ -28,6 +29,15 @@ En el target `ChatterinoIOS`:
 2. Rellenar `TWITCH_CLIENT_ID` y `TWITCH_REDIRECT_URI`
 3. Asignar el `.xcconfig` al target/configuración.
 
-## 4. Run
+## 4. Flags de compilación
+
+En este MVP, `project.yml` ya define:
+
+- `Debug`: `USE_MOCK_SERVICES`
+- `Release`: `USE_REAL_SERVICES`
+
+La resolución se hace en `ChatterinoIOS/Services/ServiceFactory.swift`.
+
+## 5. Run
 
 Seleccionar simulador iPhone y ejecutar.

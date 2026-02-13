@@ -26,6 +26,10 @@
 	<true/>
 	<key>UILaunchScreen</key>
 	<dict/>
+	<key>TWITCH_CLIENT_ID</key>
+	<string>$(TWITCH_CLIENT_ID)</string>
+	<key>TWITCH_REDIRECT_URI</key>
+	<string>$(TWITCH_REDIRECT_URI)</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
