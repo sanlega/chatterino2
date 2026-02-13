@@ -33,7 +33,7 @@ final class AppViewModel: ObservableObject {
             await loadChannels()
             route = .channels
         } catch {
-            errorText = "No se pudo iniciar sesión"
+            errorText = "Login Twitch falló: \(error.localizedDescription)"
         }
     }
 

@@ -1,8 +1,9 @@
 import Foundation
 import AuthenticationServices
 import CryptoKit
+import UIKit
 
-final class TwitchOAuthService: NSObject, AuthService {
+final class TwitchOAuthService: NSObject, AuthService, ASWebAuthenticationPresentationContextProviding {
     private let tokenKey = "twitch_access_token"
     private let refreshTokenKey = "twitch_refresh_token"
 
@@ -66,6 +67,7 @@ final class TwitchOAuthService: NSObject, AuthService {
                 }
                 cont.resume(returning: url)
             }
+            session.presentationContextProvider = self
             session.prefersEphemeralWebBrowserSession = false
             self.authSession = session
             session.start()
@@ -121,6 +123,16 @@ final class TwitchOAuthService: NSObject, AuthService {
         KeychainStore.remove(key: refreshTokenKey)
         KeychainStore.remove(key: "twitch_login")
         KeychainStore.remove(key: "twitch_user_id")
+    }
+
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        for scene in UIApplication.shared.connectedScenes {
+            if let winScene = scene as? UIWindowScene,
+               let win = winScene.windows.first(where: { $0.isKeyWindow }) {
+                return win
+            }
+        }
+        return ASPresentationAnchor()
     }
 
     private static func randomURLSafeString(length: Int) -> String {
