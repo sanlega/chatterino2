@@ -26,27 +26,10 @@ enum ServiceFactory {
 }
 
 enum AppConfig {
-    static var twitchClientID: String {
-        let fromInfo = (Bundle.main.object(forInfoDictionaryKey: "TWITCH_CLIENT_ID") as? String) ?? ""
-        if !fromInfo.isEmpty, fromInfo != "$(TWITCH_CLIENT_ID)" { return fromInfo }
-        return "ly5unwrgvyb238l3ia9ndgmtmcoq3g"
-    }
-
-    static var twitchClientSecret: String {
-        let fromInfo = (Bundle.main.object(forInfoDictionaryKey: "TWITCH_CLIENT_SECRET") as? String) ?? ""
-        if !fromInfo.isEmpty, fromInfo != "$(TWITCH_CLIENT_SECRET)" { return fromInfo }
-        return ""
-    }
-
-    static var twitchRedirectURI: String {
-        let fromInfo = (Bundle.main.object(forInfoDictionaryKey: "TWITCH_REDIRECT_URI") as? String) ?? ""
-        if !fromInfo.isEmpty, fromInfo != "$(TWITCH_REDIRECT_URI)" { return fromInfo }
-        return "https://sanlega.github.io/chatterinoios-oauth-relay/"
-    }
-
-    static var twitchCallbackScheme: String {
-        let fromInfo = (Bundle.main.object(forInfoDictionaryKey: "TWITCH_CALLBACK_SCHEME") as? String) ?? ""
-        if !fromInfo.isEmpty, fromInfo != "$(TWITCH_CALLBACK_SCHEME)" { return fromInfo }
-        return "chatterinoios"
-    }
+    // Hardcode temporal para eliminar dudas de lectura de configuración.
+    // Cuando OAuth quede estable, volvemos a leer desde Config.xcconfig/Info.plist.
+    static var twitchClientID: String { "ly5unwrgvyb238l3ia9ndgmtmcoq3g" }
+    static var twitchClientSecret: String { "" } // app pública
+    static var twitchRedirectURI: String { "https://sanlega.github.io/chatterinoios-oauth-relay/" }
+    static var twitchCallbackScheme: String { "chatterinoios" }
 }
