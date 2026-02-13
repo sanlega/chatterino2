@@ -15,7 +15,8 @@ targets:
       - ChatterinoIOS
     settings:
       base:
-        INFOPLIST_FILE: Info.plist
+        INFOPLIST_FILE: ChatterinoIOS/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
       configs:
         Debug:
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) DEBUG USE_MOCK_SERVICES

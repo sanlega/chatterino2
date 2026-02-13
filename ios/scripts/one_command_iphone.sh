@@ -47,7 +47,7 @@ fi
 if [[ -n "${DEVELOPMENT_TEAM:-}" && -n "${DEVICE_UDID:-}" ]]; then
   echo "[6/6] Intentando build firmado para iPhone (${DEVICE_UDID})..."
   xcodebuild \
-    -project ChatterinoIOS/ChatterinoIOS.xcodeproj \
+    -project ChatterinoIOS.xcodeproj \
     -scheme ChatterinoIOS \
     -configuration Debug \
     -destination "id=${DEVICE_UDID}" \
@@ -60,7 +60,7 @@ if [[ -n "${DEVELOPMENT_TEAM:-}" && -n "${DEVICE_UDID:-}" ]]; then
   echo "Si no se instaló automáticamente, abre Xcode y pulsa Run con el iPhone seleccionado."
 else
   echo "[6/6] Abriendo proyecto en Xcode para instalación en iPhone..."
-  open ChatterinoIOS/ChatterinoIOS.xcodeproj
+  open ChatterinoIOS.xcodeproj
   cat <<'EOF'
 
 Listo.
