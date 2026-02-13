@@ -79,7 +79,8 @@ final class TwitchOAuthService: NSObject, AuthService, ASWebAuthenticationPresen
                 cont.resume(returning: url)
             }
             session.presentationContextProvider = self
-            session.prefersEphemeralWebBrowserSession = false
+            // Evita reutilizar sesión/cookies previas de Safari en pruebas
+            session.prefersEphemeralWebBrowserSession = true
             self.authSession = session
             session.start()
         }
