@@ -120,8 +120,9 @@ final class TwitchOAuthService: NSObject, AuthService, ASWebAuthenticationPresen
         let (data, response) = try await URLSession.shared.data(for: request)
         guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
             let text = String(data: data, encoding: .utf8) ?? ""
+            let debug = "clientId=\(clientId) redirect=\(redirectURI) hasSecret=\(!clientSecret.isEmpty) status=\((response as? HTTPURLResponse)?.statusCode ?? -1)"
             throw NSError(domain: "TwitchOAuthService", code: 5,
-                          userInfo: [NSLocalizedDescriptionKey: "Token exchange falló: \(text)"])
+                          userInfo: [NSLocalizedDescriptionKey: "Token exchange falló: \(text) [\(debug)]"])
         }
 
         struct TokenResponse: Decodable {
